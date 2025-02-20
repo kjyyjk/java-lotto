@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -34,6 +35,20 @@ class LottoTest {
         assertThatThrownBy(() -> new Lotto(numbers))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("6개의 고유한 번호를 입력해야 합니다.");
+    }
+
+    @DisplayName("일치하는_번호의_개수를_계산하여_반환할_수_있다")
+    @Test
+    void 일치하는_번호의_개수를_계산하여_반환할_수_있다() {
+        //given
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 7));
+
+        //when
+        int result = lotto.calculateMatchCount(winningLotto);
+
+        //then
+        assertThat(result).isEqualTo(5);
     }
 
     static Stream<Arguments> returnWrongSizeNumbers() {

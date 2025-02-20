@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,23 +21,10 @@ public class WinningLotto {
         }
 
         for (final Lotto lotto : lottos) {
-            Rank rank = checkRank(lotto.getNumbers(), winningNumbers.getNumbers(), bonusNumber);
+            Rank rank = Rank.checkRank(lotto.calculateMatchCount(winningNumbers), lotto.contains(bonusNumber));
             statistics.put(rank, statistics.get(rank) + 1);
         }
         return new WinningStatistics(statistics);
-    }
-
-    private Rank checkRank(final List<LottoNumber> lottoNumbers, final List<LottoNumber> winningNumbers,
-                           final LottoNumber bonusNumber) {
-        int matchCount = calculateMatchCount(lottoNumbers, winningNumbers);
-        boolean hasBonusNumber = lottoNumbers.contains(bonusNumber);
-        return Rank.checkRank(matchCount, hasBonusNumber);
-    }
-
-    private int calculateMatchCount(final List<LottoNumber> lottoNumbers, final List<LottoNumber> winningNumbers) {
-        List<LottoNumber> matchNumbers = new ArrayList<>(winningNumbers);
-        matchNumbers.retainAll(lottoNumbers);
-        return matchNumbers.size();
     }
 
     private void validateBonusNumberDuplicated(final Lotto winningNumbers, final LottoNumber bonusNumber) {

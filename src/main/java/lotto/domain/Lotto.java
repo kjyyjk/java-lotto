@@ -27,6 +27,12 @@ public class Lotto {
         return Collections.unmodifiableList(numbers);
     }
 
+    public int calculateMatchCount(final Lotto winningLotto) {
+        List<LottoNumber> matchNumbers = new ArrayList<>(winningLotto.getNumbers());
+        matchNumbers.retainAll(numbers);
+        return matchNumbers.size();
+    }
+
     private List<LottoNumber> getSortedNumbers(final List<LottoNumber> numbers) {
         List<LottoNumber> sortedNumbers = new ArrayList<>(numbers);
         Collections.sort(
@@ -35,7 +41,6 @@ public class Lotto {
         );
         return sortedNumbers;
     }
-
     private void validateNumbers(final List<LottoNumber> winningNumbers) {
         if (new HashSet<>(winningNumbers).size() != LOTTO_SIZE) {
             throw new IllegalArgumentException(LOTTO_SIZE + "개의 고유한 번호를 입력해야 합니다.");
