@@ -13,8 +13,6 @@ class LottoNumberTest {
     @ValueSource(ints = {0, 46, 100})
     @ParameterizedTest
     void 번호가_1과_45_사이의_번호가_아니면_예외를_던진다(int lottoNumber) {
-        //given
-        //when
         //then
         assertThatThrownBy(() -> new LottoNumber(lottoNumber))
                 .isInstanceOf(IllegalArgumentException.class)

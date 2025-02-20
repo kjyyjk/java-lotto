@@ -1,16 +1,11 @@
 package lotto.domain;
 
-import static lotto.domain.LottoNumber.MAX_LOTTO_NUMBER;
-import static lotto.domain.LottoNumber.MIN_LOTTO_NUMBER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import java.util.stream.Stream;
-import lotto.domain.Lotto;
-import lotto.domain.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -35,8 +30,6 @@ class LottoTest {
     @MethodSource("returnWrongSizeNumbers")
     @ParameterizedTest
     void _6개의_고유한_번호가_아니라면_예외를_던진다(List<Integer> numbers) {
-        //given
-        //when
         //then
         assertThatThrownBy(() -> new Lotto(numbers))
                 .isInstanceOf(IllegalArgumentException.class)

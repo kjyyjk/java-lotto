@@ -1,8 +1,6 @@
 package lotto.domain;
 
 import java.util.List;
-import lotto.domain.Lotto;
-import lotto.domain.LottoMachine;
 import lotto.mock.TestLottoGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,12 +19,11 @@ class LottoMachineTest {
         //given
         int purchaseAmount = 500;
 
-        //when
         //then
         assertThatThrownBy(() ->
                 lottoMachine.purchase(purchaseAmount)
         ).isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("구입금액은 %d원으로 나누어져야 합니다. [입력: %d]".formatted(LottoMachine.LOTTO_UNIT_PRICE, 500));
+                .hasMessage("구입금액은 %d원으로 나누어져야 합니다. [입력: %d]".formatted(LottoMachine.LOTTO_UNIT_PRICE, purchaseAmount));
     }
 
     @DisplayName("구입금액이 양수가 아니라면 예외를 던진다")
@@ -35,12 +32,11 @@ class LottoMachineTest {
         //given
         int purchaseAmount = -1000;
 
-        //when
         //then
         assertThatThrownBy(() ->
                 lottoMachine.purchase(purchaseAmount)
         ).isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("구입금액은 양수여야 합니다. [입력: %d]".formatted(-1000));
+                .hasMessage("구입금액은 양수여야 합니다. [입력: %d]".formatted(purchaseAmount));
     }
 
     @DisplayName("구입금액이 10만원을 초과하면 예외를 던진다")
@@ -49,12 +45,11 @@ class LottoMachineTest {
         //given
         int purchaseAmount = 200000;
 
-        //when
         //then
         assertThatThrownBy(() ->
-                lottoMachine.purchase(200000)
+                lottoMachine.purchase(purchaseAmount)
         ).isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("구입금액은 최대 100000원까지입니다. [입력: %d]".formatted(200000));
+                .hasMessage("구입금액은 최대 100000원까지입니다. [입력: %d]".formatted(purchaseAmount));
     }
 
     @DisplayName("구입금액에 해당하는 개수의 로또를 발행한다")

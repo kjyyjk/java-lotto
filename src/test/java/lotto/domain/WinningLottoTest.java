@@ -23,7 +23,6 @@ class WinningLottoTest {
         //given
         Lotto winningNumbers = new Lotto(List.of(1, 2, 3, 4, 5, 6));
 
-        //when
         //then
         assertThatThrownBy(() -> new WinningLotto(winningNumbers, new LottoNumber(bonusNumber)))
                 .isInstanceOf(IllegalArgumentException.class)
