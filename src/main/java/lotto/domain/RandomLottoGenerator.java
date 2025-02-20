@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class SystemLottoGenerator implements LottoGenerator {
+public class RandomLottoGenerator implements LottoGenerator {
     private static final Random RANDOM = new Random();
 
     @Override
