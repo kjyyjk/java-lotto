@@ -1,6 +1,7 @@
 package lotto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
 import lotto.domain.LottoNumber;
@@ -53,7 +54,10 @@ public class Application {
 
     private static Lotto getWinningNumbers() {
         try {
-            return new Lotto(InputView.inputWinningNumbers());
+            List<LottoNumber> lottoNumbers = InputView.inputWinningNumbers().stream()
+                    .map(LottoNumber::new)
+                    .collect(Collectors.toList());
+            return new Lotto(lottoNumbers);
         } catch (final IllegalArgumentException e) {
             OutputView.printErrorMessage(e.getMessage());
             return getWinningNumbers();

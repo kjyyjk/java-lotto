@@ -5,23 +5,22 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.ArrayList;
 import java.util.List;
-import lotto.domain.Lotto;
-import lotto.domain.LottoNumber;
-import lotto.domain.Rank;
-import lotto.domain.WinningLotto;
-import lotto.domain.WinningStatistics;
+import java.util.stream.Collectors;
+import lotto.mock.TestLottoGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class WinningLottoTest {
+    private final LottoGenerator lottoGenerator = new TestLottoGenerator();
+
     @DisplayName("당첨 번호와 보너스 번호가 중복되면 예외를 던진다")
     @ValueSource(ints = {1, 2, 3, 4, 5, 6})
     @ParameterizedTest
     void 당첨_번호와_보너스_번호가_중복되면_예외를_던진다(int bonusNumber) {
         //given
-        Lotto winningNumbers = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        Lotto winningNumbers = lottoGenerator.generate();
 
         //then
         assertThatThrownBy(() -> new WinningLotto(winningNumbers, new LottoNumber(bonusNumber)))
@@ -35,11 +34,22 @@ class WinningLottoTest {
     void 여러_로또의_당첨_통계를_계산할_수_있다(Rank rank, int expected) {
         //given
         List<Lotto> lottos = new ArrayList<>();
-        lottos.add(new Lotto(List.of(1, 2, 3, 4, 5, 6))); // FIRST
-        lottos.add(new Lotto(List.of(1, 2, 3, 4, 5, 8))); // THIRD
-        lottos.add(new Lotto(List.of(7, 8, 9, 10, 11, 12))); // NONE
+        lottos.add(new Lotto(List.of(1, 2, 3, 4, 5, 6) // FIRST
+                .stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toList())));
+        lottos.add(new Lotto(List.of(1, 2, 3, 4, 5, 8).stream() // THIRD
+                .map(LottoNumber::new)
+                .collect(Collectors.toList())));
+        lottos.add(new Lotto(List.of(7, 8, 9, 10, 11, 12).stream() // NONE
+                .map(LottoNumber::new)
+                .collect(Collectors.toList())));
 
-        WinningLotto winningLotto = new WinningLotto(new Lotto(List.of(1, 2, 3, 4, 5, 6)), new LottoNumber(7));
+        WinningLotto winningLotto = new WinningLotto(
+                new Lotto(List.of(1, 2, 3, 4, 5, 6).stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toList())),
+                new LottoNumber(7));
 
         //when
         WinningStatistics result = winningLotto.calculateStatistics(lottos);

@@ -1,22 +1,16 @@
 package lotto.domain;
 
 import static lotto.domain.Lotto.LOTTO_SIZE;
-import static lotto.domain.LottoNumber.MAX_LOTTO_NUMBER;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
 public class RandomLottoGenerator implements LottoGenerator {
-    private static final Random RANDOM = new Random();
-
     @Override
     public Lotto generate() {
-        Set<Integer> numbers = new HashSet<>();
-        while (numbers.size() < LOTTO_SIZE) {
-            numbers.add(RANDOM.nextInt(MAX_LOTTO_NUMBER - 1) + 1);
-        }
-        return new Lotto(new ArrayList<>(numbers));
+        List<LottoNumber> lottoNumbers = new ArrayList<>(LottoNumber.VALUES);
+        Collections.shuffle(lottoNumbers);
+        return new Lotto(lottoNumbers.subList(0, LOTTO_SIZE));
     }
 }

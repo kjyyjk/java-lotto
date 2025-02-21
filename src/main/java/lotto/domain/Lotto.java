@@ -11,10 +11,7 @@ public class Lotto {
 
     private final List<LottoNumber> numbers;
 
-    public Lotto(final List<Integer> numbers) {
-        List<LottoNumber> lottoNumbers = numbers.stream()
-                        .map(LottoNumber::new)
-                        .toList();
+    public Lotto(final List<LottoNumber> lottoNumbers) {
         validateNumbers(lottoNumbers);
         this.numbers= getSortedNumbers(lottoNumbers);
     }
@@ -37,7 +34,7 @@ public class Lotto {
         List<LottoNumber> sortedNumbers = new ArrayList<>(numbers);
         Collections.sort(
                 sortedNumbers,
-                Comparator.comparingInt(LottoNumber::getLottoNumber)
+                Comparator.comparingInt(LottoNumber::getNumber)
         );
         return sortedNumbers;
     }

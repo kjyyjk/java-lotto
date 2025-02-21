@@ -77,6 +77,6 @@ class LottoMachineTest {
         //then
         assertThat(result.getNumbers().size()).isEqualTo(6);
         result.getNumbers()
-                .forEach(number -> assertThat(number.getLottoNumber()).isBetween(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
+                .forEach(number -> assertThat(number.getNumber()).isBetween(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
     }
 }
