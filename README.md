@@ -1,3 +1,12 @@
+### 🗓️ 미션 일정
+
+| 단계  | 내용        | 기간                      | PR 링크 |
+|-------|------------|---------------------------|---------|
+| Step1 | 구현       | 2025.02.11 ~ 2025.02.16   | [PR](https://github.com/woowacourse/java-lotto/pull/535) |
+| Step2 | 리팩토링   | 2025.02.16 ~ 2025.02.19   | [PR](https://github.com/woowacourse/java-lotto/pull/659) |
+
+🔗 [미션 회고](https://kjyyjk.tistory.com/371)
+
 # java-lotto
 
 ## 기능 요구사항
